@@ -2,6 +2,8 @@ exports.up = async (knex) => {
   await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
   return knex.schema.createTable('views', (t) => {
+    t.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
+
     t.uuid('user_id')
       .references('id')
       .inTable('users')
@@ -15,8 +17,6 @@ exports.up = async (knex) => {
       .notNull();
 
     t.timestamp('created_at').defaultTo(knex.fn.now()).notNull();
-
-    t.primary(['user_id', 'project_id', 'created_at']);
   });
 };
 

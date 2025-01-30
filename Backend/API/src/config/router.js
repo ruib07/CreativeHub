@@ -8,6 +8,7 @@ module.exports = (app) => {
   app.use('/passwordrecovery', app.routes.passwordResets);
 
   publicRouter.use('/userRegistrations', app.routes.userRegistrations);
+  publicRouter.use('/views', app.routes.views);
 
   publicRouter.use('/users', (req, res, next) => {
     const usersRouter = express.Router();
@@ -47,7 +48,6 @@ module.exports = (app) => {
   secureRouter.use('/projects', app.routes.projects);
   secureRouter.use('/comments', app.routes.comments);
   secureRouter.use('/likes', app.routes.likes);
-  secureRouter.use('/views', app.routes.views);
 
   app.use('/v1', publicRouter);
   app.use('/v1', app.config.passport.authenticate(), secureRouter);

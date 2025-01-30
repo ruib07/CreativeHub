@@ -3,7 +3,7 @@ const jwt = require('jwt-simple');
 const uuid = require('uuid');
 const app = require('../../src/app');
 
-const route = '/v1/comments';
+const route = '/v1/views';
 const secret = 'userCreativeHub@2025';
 
 const generateUniqueEmail = () => `${uuid.v4()}@gmail.com`;
@@ -49,22 +49,9 @@ beforeAll(async () => {
   project = { ...projectRes[0] };
 });
 
-test('Test #37 - Get a comment by Project ID', () => app.db('comments')
-  .insert({
-    comment: 'Really good project you made. Keep it up!',
-    user_id: user.id,
-    project_id: project.id,
-  }, ['project_id'])
-  .then((commentRes) => request(app).get(`${route}/${commentRes[0].project_id}`))
-  .then((res) => {
-    expect(res.status).toBe(200);
-  }));
-
-test('Test #38 - Creating a comment', async () => {
+test('Test #43 - Creating a view with a user', async () => {
   await request(app).post(route)
-    .set('Authorization', `bearer ${user.token}`)
     .send({
-      comment: 'Really good project you made. Keep it up!',
       user_id: user.id,
       project_id: project.id,
     })
@@ -73,33 +60,13 @@ test('Test #38 - Creating a comment', async () => {
     });
 });
 
-describe('Comments creation validation', () => {
-  const testTemplate = (newData, errorMessage) => request(app).post(route)
-    .set('Authorization', `bearer ${user.token}`)
+test('Test #44 - Creating a view without a user', async () => {
+  await request(app).post(route)
     .send({
-      comment: 'Really good project you made. Keep it up!',
-      user_id: user.id,
+      user_id: null,
       project_id: project.id,
-      ...newData,
     })
     .then((res) => {
-      expect(res.status).toBe(400);
-      expect(res.body.error).toBe(errorMessage);
+      expect(res.status).toBe(201);
     });
-
-  test('Test #39 - Insert a comment without a comment', () => testTemplate({ comment: null }, 'Comment is required!'));
-});
-
-test('Test #40 - Deleting an comment', async () => {
-  const commentDel = await app.db('comments')
-    .insert({
-      comment: 'Really good project you made. Keep it up!',
-      user_id: user.id,
-      project_id: project.id,
-    }, ['id']);
-
-  const res = await request(app).delete(`${route}/${commentDel[0].id}`)
-    .set('Authorization', `bearer ${user.token}`);
-
-  expect(res.status).toBe(204);
 });

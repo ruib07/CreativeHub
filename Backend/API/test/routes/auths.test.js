@@ -47,7 +47,7 @@ test('Test #14 - Wrong authentication attempt for users', () => {
   })
     .then(() => request(app).post(signinRoute)
       .send({
-        name: 'User2',
+        name: 'User2Auth',
         password: 'User2@Auth-12',
       }))
     .then((res) => {

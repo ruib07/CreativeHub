@@ -27,12 +27,12 @@ beforeAll(async () => {
   user.token = jwt.encode(user, secret);
 });
 
-test('Test #16 - Get all Categories', () => request(app).get(route)
+test('Test #23 - Get all Categories', () => request(app).get(route)
   .then((res) => {
     expect(res.status).toBe(200);
   }));
 
-test('Test #17 - Register a category', async () => {
+test('Test #24 - Register a category', async () => {
   const res = await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -54,10 +54,10 @@ describe('Category creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #18 - Insert a category without name', () => testTemplate({ name: null }, 'Name is required!'));
+  test('Test #25 - Insert a category without name', () => testTemplate({ name: null }, 'Name is required!'));
 });
 
-test('Test #19 - Updating user data', () => app.db('categories')
+test('Test #26 - Updating user data', () => app.db('categories')
   .insert({
     name: generateUniqueCategoryName(),
   }, ['id'])
@@ -70,7 +70,7 @@ test('Test #19 - Updating user data', () => app.db('categories')
     expect(res.status).toBe(200);
   }));
 
-test('Test #20 - Deleting an category', async () => {
+test('Test #27 - Deleting an category', async () => {
   const categoryDel = await app.db('categories')
     .insert({
       name: generateUniqueCategoryName(),

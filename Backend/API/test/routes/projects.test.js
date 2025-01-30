@@ -34,12 +34,12 @@ beforeAll(async () => {
   category = { ...categoryRes[0] };
 });
 
-test('Test #21 - Get all projects', () => request(app).get(route)
+test('Test #28 - Get all projects', () => request(app).get(route)
   .then((res) => {
     expect(res.status).toBe(200);
   }));
 
-test('Test #22 - Get a project by his ID', () => app.db('projects')
+test('Test #29 - Get a project by his ID', () => app.db('projects')
   .insert({
     title: 'CreativeHub',
     description: 'A system where designers, photographers and developers can create and display their portfolios in an organized way.',
@@ -56,7 +56,7 @@ test('Test #22 - Get a project by his ID', () => app.db('projects')
     expect(res.status).toBe(200);
   }));
 
-test('Test #23 - Creating a project', async () => {
+test('Test #30 - Creating a project', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -95,13 +95,13 @@ describe('Project creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #24 - Insert a project without a title', () => testTemplate({ title: null }, 'Title is required!'));
-  test('Test #25 - Insert a project without a description', () => testTemplate({ description: null }, 'Description is required!'));
-  test('Test #26 - Insert a project without tags', () => testTemplate({ tags: null }, 'Tags are required!'));
-  test('Test #27 - Insert a project without images', () => testTemplate({ image_urls: null }, 'Images are required!'));
+  test('Test #31 - Insert a project without a title', () => testTemplate({ title: null }, 'Title is required!'));
+  test('Test #32 - Insert a project without a description', () => testTemplate({ description: null }, 'Description is required!'));
+  test('Test #33 - Insert a project without tags', () => testTemplate({ tags: null }, 'Tags are required!'));
+  test('Test #34 - Insert a project without images', () => testTemplate({ image_urls: null }, 'Images are required!'));
 });
 
-test('Test #28 - Updating project data', () => app.db('projects')
+test('Test #35 - Updating project data', () => app.db('projects')
   .insert({
     title: 'CreativeHub',
     description: 'A system where designers, photographers and developers can create and display their portfolios in an organized way.',
@@ -130,7 +130,7 @@ test('Test #28 - Updating project data', () => app.db('projects')
     expect(res.status).toBe(200);
   }));
 
-test('Test #29 - Deleting an project', async () => {
+test('Test #36 - Deleting an project', async () => {
   const projectDel = await app.db('projects')
     .insert({
       title: 'CreativeHub',

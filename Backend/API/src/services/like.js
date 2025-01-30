@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 module.exports = (app) => {
   const save = (registerLike) => app.db('likes').insert(registerLike, '*');
 
-  const remove = (id) => app.db('likes')
-    .where({ id })
+  const remove = (user_id, project_id) => app.db('likes')
+    .where({ user_id, project_id })
     .del();
 
   return {
