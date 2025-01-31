@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 module.exports = (app) => {
   const save = (registerLike) => app.db('likes').insert(registerLike, '*');
 
