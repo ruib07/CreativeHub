@@ -49,7 +49,7 @@ beforeAll(async () => {
   project = { ...projectRes[0] };
 });
 
-test('Test #41 - Creating a like', async () => {
+test('Test #42 - Creating a like', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -61,7 +61,7 @@ test('Test #41 - Creating a like', async () => {
     });
 });
 
-test('Test #42 - Deleting a like', async () => {
+test('Test #43 - Deleting a like', async () => {
   const res = await request(app)
     .delete(`${route}/${user.id}/${project.id}`)
     .set('Authorization', `bearer ${user.token}`);

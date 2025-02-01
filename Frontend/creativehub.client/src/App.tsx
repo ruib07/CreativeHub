@@ -7,6 +7,8 @@ import NewRegistration from "./components/Authentication/RegistrationComponent";
 import Authentication from "./components/Authentication/LoginComponent";
 import RecoverPasswordEmail from "./components/Authentication/PasswordRecovery/RecoverSendEmailComponent";
 import RecoverPasswordUpdate from "./components/Authentication/PasswordRecovery/ChangePasswordComponent";
+import Dashboard from "./components/HomeComponent";
+import NewProject from "./components/Projects/AddProjectComponent";
 
 export default function App() {
   return (
@@ -36,6 +38,8 @@ export default function App() {
               path="/RecoverPassword/ChangePassword"
               element={<RecoverPasswordUpdate />}
             />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/Projects/Create" element={<NewProject />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
