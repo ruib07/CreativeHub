@@ -8,27 +8,26 @@ import Header from "../layouts/Header";
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [projects, setProjects] = useState<IProject[]>([]);
-  const [, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchProjects = async () => {
       try {
         const userId = localStorage.getItem("id");
+
         const response = await GetUserById(userId!);
-        const { name } = response?.data;
+        const { name } = response.data;
         setUser({ name });
 
         const projectsResponse = await GetProjectsByUser(userId!);
-        const allProjects = projectsResponse.data;
-
-        setProjects([allProjects]);
+        setProjects(projectsResponse.data);
       } catch (error) {
-        setError(`Failed to load user data: ${error}`);
+        setError(`Failed to load data: ${error}`);
       }
     };
 
-    fetchUser();
+    fetchProjects();
   }, []);
 
   return (
@@ -43,6 +42,7 @@ export default function Dashboard() {
                 <h1 className="text-3xl font-bold mb-10 text-gray-200">
                   Your Dashboard
                 </h1>
+                {error && <p className="text-red-500">{error}</p>}
                 <hr className="my-10 border-gray-700" />
 
                 <div className="grid grid-cols-2 gap-x-10">
@@ -71,10 +71,10 @@ export default function Dashboard() {
                       Your Projects
                     </h2>
                     <div className="space-y-4">
-                      {projects.length > 0 ? (
+                      {Array.isArray(projects) && projects.length > 0 ? (
                         projects.map((project, index) => (
                           <div
-                            key={index}
+                            key={project.id || index}
                             className="p-5 bg-gray-800 border border-gray-700 rounded-xl shadow-md hover:shadow-lg transition"
                           >
                             <div className="flex justify-between text-sm text-gray-400">

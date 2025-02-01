@@ -2,6 +2,9 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
+import GoToTopPage from "./hooks/GoToTopPage";
+import ScrollToTopButton from "./hooks/ScrollToTopButton";
+
 import NotFound from "./components/404";
 import NewRegistration from "./components/Authentication/RegistrationComponent";
 import Authentication from "./components/Authentication/LoginComponent";
@@ -9,6 +12,9 @@ import RecoverPasswordEmail from "./components/Authentication/PasswordRecovery/R
 import RecoverPasswordUpdate from "./components/Authentication/PasswordRecovery/ChangePasswordComponent";
 import Dashboard from "./components/HomeComponent";
 import NewProject from "./components/Projects/AddProjectComponent";
+import Projects from "./components/Projects/Projects";
+import Categories from "./components/Categories/CategoriesComponent";
+import NewCategory from "./components/Categories/AddCategoryComponent";
 
 export default function App() {
   return (
@@ -22,6 +28,8 @@ export default function App() {
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
           }}
         />
+        <GoToTopPage />
+        <ScrollToTopButton />
 
         <div className="flex-grow container mx-auto">
           <Routes>
@@ -40,6 +48,9 @@ export default function App() {
             />
             <Route path="/" element={<Dashboard />} />
             <Route path="/Projects/Create" element={<NewProject />} />
+            <Route path="/Projects" element={<Projects />} />
+            <Route path="/Categories/Create" element={<NewCategory />} />
+            <Route path="/Categories" element={<Categories />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

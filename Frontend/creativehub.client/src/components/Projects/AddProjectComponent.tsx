@@ -5,6 +5,7 @@ import Img from "../../assets/CreativeHubLogo.png";
 import { IProject } from "../../types/project";
 import { CreateProject } from "../../services/projectsService";
 import { GetCategories } from "../../services/categoriesService";
+import Header from "../../layouts/Header";
 
 export default function NewProject() {
   const [title, setTitle] = useState<string>("");
@@ -95,6 +96,8 @@ export default function NewProject() {
 
   return (
     <>
+      <Header />
+      <br />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img alt="CreativeHub" src={Img} className="mx-auto h-16 w-auto" />
