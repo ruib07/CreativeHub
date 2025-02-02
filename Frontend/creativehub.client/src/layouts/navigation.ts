@@ -4,7 +4,7 @@ export const navigation = [
 ];
 
 export const profileNavigation = [
-  { name: "My Profile", href: "/MyProfile", current: true },
+  { name: "My Information", href: "/MyInfo", current: true },
   { name: "My Projects", href: "/MyProjects", current: false },
   { name: "My Stats", href: "/MyStats", current: false },
 ];

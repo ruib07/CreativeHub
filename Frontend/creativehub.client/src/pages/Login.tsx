@@ -32,8 +32,8 @@ export default function Authentication() {
 
     try {
       const res = await Login(login);
-      const token = res.token;
-      const userid = res.user.id;
+      const token = res.data.token;
+      const userid = res.data.user.id;
 
       if (token) {
         localStorage.setItem("token", token);

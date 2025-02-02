@@ -49,7 +49,7 @@ beforeAll(async () => {
   project = { ...projectRes[0] };
 });
 
-test('Test #44 - Creating a view with a user', async () => {
+test('Test #45 - Creating a view with a user', async () => {
   await request(app).post(route)
     .send({
       user_id: user.id,
@@ -60,7 +60,7 @@ test('Test #44 - Creating a view with a user', async () => {
     });
 });
 
-test('Test #45 - Creating a view without a user', async () => {
+test('Test #46 - Creating a view without a user', async () => {
   await request(app).post(route)
     .send({
       user_id: null,

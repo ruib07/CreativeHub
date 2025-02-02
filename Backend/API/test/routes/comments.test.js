@@ -60,7 +60,19 @@ test('Test #38 - Get a comment by Project ID', () => app.db('comments')
     expect(res.status).toBe(200);
   }));
 
-test('Test #39 - Creating a comment', async () => {
+test('Test #39 - Get a comment by User ID', () => app.db('comments')
+  .insert({
+    comment: 'Really good project you made. Keep it up!',
+    user_id: user.id,
+    project_id: project.id,
+  }, ['user_id'])
+  .then((commentRes) => request(app).get(`${route}/byUser/${commentRes[0].user_id}`)
+    .set('Authorization', `bearer ${user.token}`))
+  .then((res) => {
+    expect(res.status).toBe(200);
+  }));
+
+test('Test #40 - Creating a comment', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -87,10 +99,10 @@ describe('Comments creation validation', () => {
       expect(res.body.error).toBe(errorMessage);
     });
 
-  test('Test #40 - Insert a comment without a comment', () => testTemplate({ comment: null }, 'Comment is required!'));
+  test('Test #41 - Insert a comment without a comment', () => testTemplate({ comment: null }, 'Comment is required!'));
 });
 
-test('Test #41 - Deleting an comment', async () => {
+test('Test #42 - Deleting an comment', async () => {
   const commentDel = await app.db('comments')
     .insert({
       comment: 'Really good project you made. Keep it up!',

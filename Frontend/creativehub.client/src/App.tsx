@@ -4,17 +4,24 @@ import "react-toastify/dist/ReactToastify.css";
 
 import GoToTopPage from "./components/Button/GoToTopPage";
 import ScrollToTopButton from "./components/Button/ScrollToTopButton";
+
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/404";
+
 import NewRegistration from "./pages/Registration";
 import Authentication from "./pages/Login";
 import RecoverPasswordEmail from "./components/PasswordRecovery/RecoverSendEmail";
 import RecoverPasswordUpdate from "./components/PasswordRecovery/ChangePassword";
-import Dashboard from "./pages/Dashboard";
-import NotFound from "./pages/404";
+
+import NewCategory from "./components/Categories/AddCategory";
+import Categories from "./components/Categories/Categories";
+
 import NewProject from "./components/Projects/AddProject";
 import Projects from "./components/Projects/Projects";
 import ProjectDetails from "./components/Projects/ProjectDetails";
-import Categories from "./components/Categories/Categories";
-import NewCategory from "./components/Categories/AddCategory";
+
+import MyInformation from "./components/Profile/UserInformation";
+import UserProjects from "./components/Profile/UserProjects";
 
 export default function App() {
   return (
@@ -52,6 +59,8 @@ export default function App() {
             <Route path="/Project/:projectId" element={<ProjectDetails />} />
             <Route path="/Categories/Create" element={<NewCategory />} />
             <Route path="/Categories" element={<Categories />} />
+            <Route path="/MyInfo" element={<MyInformation />} />
+            <Route path="/MyProjects" element={<UserProjects />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

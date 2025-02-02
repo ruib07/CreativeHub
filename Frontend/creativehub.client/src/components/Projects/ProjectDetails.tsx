@@ -6,6 +6,7 @@ import { IProject } from "../../types/project";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import ProjectComments from "./ProjectComments";
 
 export default function ProjectDetails() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -34,12 +35,12 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div className="bg-gray-800 min-h-screen">
+    <div className="bg-gray-800 rounded-lg">
       <Header />
       <br />
       <br />
       <div className="container mx-auto p-6">
-        <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <div className="overflow-hidden">
           {project.image_urls && project.image_urls.length > 0 ? (
             <Swiper pagination={{ clickable: true }} className="w-full h-96">
               {project.image_urls.map((image, index) => (
@@ -73,6 +74,7 @@ export default function ProjectDetails() {
                 : project.tags}
             </p>
             <hr className="my-10" />
+            <ProjectComments />
           </div>
         </div>
       </div>

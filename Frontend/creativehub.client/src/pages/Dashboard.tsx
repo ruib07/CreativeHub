@@ -3,20 +3,21 @@ import { GetProjectsByUser } from "../services/projectsService";
 import { IProject } from "../types/project";
 import { useNavigate } from "react-router-dom";
 import { GetUserById } from "../services/usersService";
+import { GetCommentsByUser } from "../services/commentsService";
 import Header from "../layouts/Header";
 
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [projects, setProjects] = useState<IProject[]>([]);
   const [projectsCount, setProjectsCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const userId = localStorage.getItem("id");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const userId = localStorage.getItem("id");
-
         const response = await GetUserById(userId!);
         const { name } = response.data;
         setUser({ name });
@@ -30,7 +31,20 @@ export default function Dashboard() {
     };
 
     fetchProjects();
-  }, []);
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await GetCommentsByUser(userId!);
+        setCommentsCount(response.data.length);
+      } catch (error) {
+        setError(`Failed to load comments: ${error}`);
+      }
+    };
+
+    fetchComments();
+  }, [userId]);
 
   return (
     <>
@@ -88,6 +102,14 @@ export default function Dashboard() {
                             <span className="font-medium">Total Likes:</span>
                             <span className="text-xl font-bold">
                               {projectsCount} (TODO)
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">
+                              Total Comments Made:
+                            </span>
+                            <span className="text-xl font-bold">
+                              {commentsCount}
                             </span>
                           </div>
                         </div>
