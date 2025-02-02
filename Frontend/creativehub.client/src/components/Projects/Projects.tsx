@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../layouts/Header";
 import { GetAllProjects } from "../../services/projectsService";
 import ProjectSearchBar from "../Search/ProjectSearchBar";
+import { CreateView } from "../../services/viewsService";
 
 export default function Projects() {
   const [projects, setProjects] = useState<IProject[]>([]);
@@ -27,8 +28,15 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
-  const handleProjectClick = (projectId: string) => {
-    navigate(`/Project/${encodeURIComponent(projectId)}`);
+  const handleProjectClick = async (projectId: string) => {
+    const userId = localStorage.getItem("id") || undefined;
+
+    try {
+      await CreateView({ user_id: userId, project_id: projectId });
+      navigate(`/Project/${encodeURIComponent(projectId)}`);
+    } catch (error) {
+      setError("Failed to insert view!");
+    }
   };
 
   const indexOfLastProject = currentPage * projectsPerPage;

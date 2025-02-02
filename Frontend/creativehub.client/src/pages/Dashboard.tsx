@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { GetUserById } from "../services/usersService";
 import { GetCommentsByUser } from "../services/commentsService";
 import Header from "../layouts/Header";
+import { GetViewsByUser } from "../services/viewsService";
 
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
   const [projects, setProjects] = useState<IProject[]>([]);
   const [projectsCount, setProjectsCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
+  const [viewsCount, setViewsCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const userId = localStorage.getItem("id");
@@ -18,32 +20,25 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await GetUserById(userId!);
-        const { name } = response.data;
+        const userResponse = await GetUserById(userId!);
+        const { name } = userResponse.data;
         setUser({ name });
 
         const projectsResponse = await GetProjectsByUser(userId!);
         setProjects(projectsResponse.data);
         setProjectsCount(projectsResponse.data.length);
+
+        const viewsResponse = await GetViewsByUser(userId!);
+        setViewsCount(viewsResponse.data.length);
+
+        const commentsResponse = await GetCommentsByUser(userId!);
+        setCommentsCount(commentsResponse.data.length);
       } catch (error) {
         setError(`Failed to load data: ${error}`);
       }
     };
 
     fetchProjects();
-  }, [userId]);
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await GetCommentsByUser(userId!);
-        setCommentsCount(response.data.length);
-      } catch (error) {
-        setError(`Failed to load comments: ${error}`);
-      }
-    };
-
-    fetchComments();
   }, [userId]);
 
   return (
@@ -75,7 +70,7 @@ export default function Dashboard() {
                         <button
                           type="button"
                           className="w-full py-3 px-5 rounded-xl bg-purple-600 text-white font-semibold hover:bg-purple-700 transition shadow-md"
-                          onClick={() => navigate("/Projects/byUser")}
+                          onClick={() => navigate("/MyProjects")}
                         >
                           Start Tracking
                         </button>
@@ -95,7 +90,7 @@ export default function Dashboard() {
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Total Views:</span>
                             <span className="text-xl font-bold">
-                              {projectsCount} (TODO)
+                              {viewsCount}
                             </span>
                           </div>
                           <div className="flex justify-between items-center">
