@@ -2,19 +2,19 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-import GoToTopPage from "./hooks/GoToTopPage";
-import ScrollToTopButton from "./hooks/ScrollToTopButton";
-
-import NotFound from "./components/404";
-import NewRegistration from "./components/Authentication/RegistrationComponent";
-import Authentication from "./components/Authentication/LoginComponent";
-import RecoverPasswordEmail from "./components/Authentication/PasswordRecovery/RecoverSendEmailComponent";
-import RecoverPasswordUpdate from "./components/Authentication/PasswordRecovery/ChangePasswordComponent";
-import Dashboard from "./components/HomeComponent";
-import NewProject from "./components/Projects/AddProjectComponent";
+import GoToTopPage from "./components/Button/GoToTopPage";
+import ScrollToTopButton from "./components/Button/ScrollToTopButton";
+import NewRegistration from "./pages/Registration";
+import Authentication from "./pages/Login";
+import RecoverPasswordEmail from "./components/PasswordRecovery/RecoverSendEmail";
+import RecoverPasswordUpdate from "./components/PasswordRecovery/ChangePassword";
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/404";
+import NewProject from "./components/Projects/AddProject";
 import Projects from "./components/Projects/Projects";
-import Categories from "./components/Categories/CategoriesComponent";
-import NewCategory from "./components/Categories/AddCategoryComponent";
+import ProjectDetails from "./components/Projects/ProjectDetails";
+import Categories from "./components/Categories/Categories";
+import NewCategory from "./components/Categories/AddCategory";
 
 export default function App() {
   return (
@@ -49,6 +49,7 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/Projects/Create" element={<NewProject />} />
             <Route path="/Projects" element={<Projects />} />
+            <Route path="/Project/:projectId" element={<ProjectDetails />} />
             <Route path="/Categories/Create" element={<NewCategory />} />
             <Route path="/Categories" element={<Categories />} />
             <Route path="*" element={<NotFound />} />

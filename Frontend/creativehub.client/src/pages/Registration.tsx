@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import { IRegistration } from "../../types/authentication";
-import { Registration } from "../../services/authenticationService";
-import Img from "../../assets/CreativeHubLogo.png";
+import { IRegistration } from "../types/authentication";
+import { Registration } from "../services/authenticationService";
+import Img from "../assets/CreativeHubLogo.png";
 
 export default function NewRegistration() {
   const [name, setName] = useState<string>("");

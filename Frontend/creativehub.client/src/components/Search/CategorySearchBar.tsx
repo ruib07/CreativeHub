@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { ICategory } from "../../types/category";
-
-interface SearchBarProps {
-  categories: ICategory[];
-  setFilteredCategories: (categories: ICategory[]) => void;
-}
+import { ICategorySearchBar } from "../../types/searchBar";
 
 export default function CategorySearchBar({
   categories,
   setFilteredCategories,
-}: SearchBarProps) {
+}: ICategorySearchBar) {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

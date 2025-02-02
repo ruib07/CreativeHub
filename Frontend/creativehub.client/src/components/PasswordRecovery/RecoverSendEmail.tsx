@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { RecoverPasswordSendEmail } from "../../../services/recoverPasswordService";
-import Img from "../../../assets/CreativeHubLogo.png";
+import { RecoverPasswordSendEmail } from "../../services/recoverPasswordService";
+import Img from "../../assets/CreativeHubLogo.png";
 
 export default function RecoverPasswordEmail() {
   const [email, setEmail] = useState("");

@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { IProject } from "../../types/project";
-
-interface SearchBarProps {
-  projects: IProject[];
-  setFilteredProjects: (projects: IProject[]) => void;
-}
+import { IProjectSearchBar } from "../../types/searchBar";
 
 export default function ProjectSearchBar({
   projects,
   setFilteredProjects,
-}: SearchBarProps) {
+}: IProjectSearchBar) {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

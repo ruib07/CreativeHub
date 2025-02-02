@@ -11,7 +11,7 @@ import {
 import Icon from "../assets/CreativeHubLogo.png";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate, useLocation } from "react-router-dom";
-import { navigation } from "../data/navigation";
+import { navigation } from "./navigation";
 import { GetUserById } from "../services/usersService";
 
 function classNames(...classes: any) {
