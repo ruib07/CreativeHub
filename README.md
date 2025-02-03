@@ -15,6 +15,7 @@ END
 $do$;
 
 CREATE DATABASE creativehubdb OWNER user;
+```
 
 - Install Docker and run a terminal on the backend folder the following command: docker compose --env-file env/test.env up -d
 - Create a user with password and a database on postgres
