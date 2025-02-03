@@ -20,7 +20,7 @@ module.exports = (app) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER || 'ruibarreto03@gmail.com',
+        user: process.env.EMAIL_USER || 'youremail@gmail.com',
         pass: process.env.EMAIL_PASS || 'flbl ifag fgbq xcex',
       },
     });
