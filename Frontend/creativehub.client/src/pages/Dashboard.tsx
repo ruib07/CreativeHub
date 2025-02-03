@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { GetUserById } from "../services/usersService";
 import { GetCommentsByUser } from "../services/commentsService";
 import Header from "../layouts/Header";
-import { GetViewsByUser } from "../services/viewsService";
 import { GetLikesByUser } from "../services/likesService";
 
 export default function Dashboard() {
@@ -13,7 +12,6 @@ export default function Dashboard() {
   const [projects, setProjects] = useState<IProject[]>([]);
   const [projectsCount, setProjectsCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
-  const [viewsCount, setViewsCount] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -29,9 +27,6 @@ export default function Dashboard() {
         const projectsResponse = await GetProjectsByUser(userId!);
         setProjects(projectsResponse.data);
         setProjectsCount(projectsResponse.data.length);
-
-        const viewsResponse = await GetViewsByUser(userId!);
-        setViewsCount(viewsResponse.data.length);
 
         const likesResponse = await GetLikesByUser(userId!);
         setLikesCount(likesResponse.data.length);
@@ -90,12 +85,6 @@ export default function Dashboard() {
                             <span className="font-medium">Total Projects:</span>
                             <span className="text-xl font-bold">
                               {projectsCount}
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="font-medium">Total Views:</span>
-                            <span className="text-xl font-bold">
-                              {viewsCount}
                             </span>
                           </div>
                           <div className="flex justify-between items-center">

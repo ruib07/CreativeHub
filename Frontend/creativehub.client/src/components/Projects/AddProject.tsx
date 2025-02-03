@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import Img from "../../assets/CreativeHubLogo.png";
 import { IProject } from "../../types/project";
 import { CreateProject } from "../../services/projectsService";
 import { GetCategories } from "../../services/categoriesService";
 import Header from "../../layouts/Header";
+import { showToast } from "../../utils/toastHelper";
 
 export default function NewProject() {
   const [title, setTitle] = useState<string>("");
@@ -20,15 +20,6 @@ export default function NewProject() {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
 
   useEffect(() => {
     const fetchCategories = async () => {

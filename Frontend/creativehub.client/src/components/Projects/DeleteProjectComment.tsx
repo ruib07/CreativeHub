@@ -1,21 +1,12 @@
-import { toast } from "react-toastify";
 import { IDeleteProjectComment } from "../../types/comment";
 import { DeleteComment } from "../../services/commentsService";
+import { showToast } from "../../utils/toastHelper";
 
 export default function RemoveProjectComment({
   commentId,
   onClose,
   onConfirm,
 }: IDeleteProjectComment) {
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
-
   const handleDelete = () => {
     try {
       DeleteComment(commentId);

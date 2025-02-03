@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { RecoverPasswordSendEmail } from "../../services/recoverPasswordService";
 import Img from "../../assets/CreativeHubLogo.png";
+import { showToast } from "../../utils/toastHelper";
 
 export default function RecoverPasswordEmail() {
   const [email, setEmail] = useState("");
-
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

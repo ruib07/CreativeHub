@@ -24,6 +24,8 @@ import EditProject from "./components/Projects/UpdateProject";
 import MyInformation from "./components/Profile/UserInformation";
 import UserProjects from "./components/Profile/UserProjects";
 import UserProjectComments from "./components/Profile/UserComments";
+import UserProjectLikes from "./components/Profile/UserLikes";
+import UserProjectStats from "./components/Profile/UserProjectStats";
 
 export default function App() {
   return (
@@ -68,6 +70,8 @@ export default function App() {
             <Route path="/MyInfo" element={<MyInformation />} />
             <Route path="/MyProjects" element={<UserProjects />} />
             <Route path="/MyComments" element={<UserProjectComments />} />
+            <Route path="/MyLikes" element={<UserProjectLikes />} />
+            <Route path="/MyProjectStats" element={<UserProjectStats />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

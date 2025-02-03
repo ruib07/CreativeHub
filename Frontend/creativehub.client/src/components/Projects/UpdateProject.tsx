@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { GetProjectById, UpdateProject } from "../../services/projectsService";
 import { IProject } from "../../types/project";
 import UserProfileHeader from "../../layouts/ProfileHeader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function EditProject() {
   const { projectId } = useParams();
@@ -78,6 +81,26 @@ export default function EditProject() {
     }
   };
 
+  const handleAddImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      image_urls: [...(prev.image_urls || []), ""],
+    }));
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      image_urls: prev.image_urls?.filter((_, i) => i !== index) || [],
+    }));
+  };
+
+  const handleImageChange = (index: number, value: string) => {
+    const updatedImages = [...(formData.image_urls || [])];
+    updatedImages[index] = value;
+    setFormData((prev) => ({ ...prev, image_urls: updatedImages }));
+  };
+
   return (
     <>
       <UserProfileHeader />
@@ -90,30 +113,62 @@ export default function EditProject() {
           {project ? (
             <div>
               <div className="flex flex-col items-center space-y-6">
-                <img
-                  src={
-                    formData.image_urls?.[0] ||
-                    "https://via.placeholder.com/300"
-                  }
-                  alt="Project"
-                  className="w-48 h-48 object-cover rounded-lg border-4 border-purple-500"
-                />
+                {formData.image_urls && formData.image_urls.length > 0 ? (
+                  <Swiper
+                    pagination={{ clickable: true }}
+                    className="w-full h-64"
+                  >
+                    {formData.image_urls.map((image, index) => (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={image || "https://via.placeholder.com/300"}
+                          alt={`Project ${index + 1}`}
+                          className="w-full h-64 object-cover rounded-lg border border-gray-500"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                ) : (
+                  <img
+                    src="https://via.placeholder.com/300"
+                    alt="Project"
+                    className="w-full h-48 object-cover rounded-lg border border-gray-500"
+                  />
+                )}
 
-                <input
-                  type="text"
-                  name="image_urls"
-                  value={formData.image_urls?.[0]}
-                  onChange={(e) =>
-                    setFormData({ ...formData, image_urls: [e.target.value] })
-                  }
-                  disabled={!isEditing}
-                  className={`w-full mt-1 p-2 border bg-gray-800 text-gray-200 rounded-md ${
-                    isEditing
-                      ? "border-purple-500 focus:border-purple-600"
-                      : "border-gray-500"
-                  }`}
-                  placeholder="Project Image URL"
-                />
+                {/* Campos de URL das imagens */}
+                {isEditing &&
+                  formData.image_urls?.map((image, index) => (
+                    <div
+                      key={index}
+                      className="w-full flex items-center space-x-2"
+                    >
+                      <input
+                        type="text"
+                        value={image}
+                        onChange={(e) =>
+                          handleImageChange(index, e.target.value)
+                        }
+                        className="flex-1 p-2 border bg-gray-800 text-gray-200 rounded-md border-purple-500"
+                        placeholder="Image URL"
+                      />
+                      <button
+                        onClick={() => handleRemoveImage(index)}
+                        className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+
+                {isEditing && (
+                  <button
+                    onClick={handleAddImage}
+                    className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition mt-3"
+                  >
+                    + Add Image
+                  </button>
+                )}
               </div>
 
               <div className="grid grid-cols-1 gap-6 mt-6">
@@ -123,7 +178,7 @@ export default function EditProject() {
                   value={formData.title}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full mt-1 p-2 border bg-gray-800 text-gray-200 rounded-md ${
+                  className={`w-full p-2 border bg-gray-800 text-gray-200 rounded-md ${
                     isEditing
                       ? "border-purple-500 focus:border-purple-600"
                       : "border-gray-500"
@@ -136,7 +191,7 @@ export default function EditProject() {
                   value={formData.description}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full mt-1 p-2 border bg-gray-800 text-gray-200 rounded-md ${
+                  className={`w-full p-2 border bg-gray-800 text-gray-200 rounded-md ${
                     isEditing
                       ? "border-purple-500 focus:border-purple-600"
                       : "border-gray-500"
@@ -151,7 +206,7 @@ export default function EditProject() {
                   value={formData.tags?.join(", ")}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full mt-1 p-2 border bg-gray-800 text-gray-200 rounded-md ${
+                  className={`w-full p-2 border bg-gray-800 text-gray-200 rounded-md ${
                     isEditing
                       ? "border-purple-500 focus:border-purple-600"
                       : "border-gray-500"

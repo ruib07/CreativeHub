@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { RecoverPasswordChange } from "../../services/recoverPasswordService";
 import Img from "../../assets/CreativeHubLogo.png";
+import { showToast } from "../../utils/toastHelper";
 
 export default function RecoverPasswordUpdate() {
   const [newPassword, setNewPassword] = useState("");
@@ -23,25 +23,11 @@ export default function RecoverPasswordUpdate() {
     }
   }, [location]);
 
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
-
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (newPassword !== confirmNewPassword) {
-      toast.error("Passwords do not match!", {
-        position: "bottom-right",
-        autoClose: 5000,
-        closeOnClick: true,
-        draggable: true,
-      });
+      showToast("Passwords do not match!", "error");
       return;
     }
 

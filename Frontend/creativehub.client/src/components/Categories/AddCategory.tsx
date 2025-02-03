@@ -1,23 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import Img from "../../assets/CreativeHubLogo.png";
 import Header from "../../layouts/Header";
 import { ICategory } from "../../types/category";
 import { CreateCategory } from "../../services/categoriesService";
+import { showToast } from "../../utils/toastHelper";
 
 export default function NewCategory() {
   const [name, setName] = useState<string>("");
   const navigate = useNavigate();
-
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();

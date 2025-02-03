@@ -1,21 +1,12 @@
-import { toast } from "react-toastify";
 import { IDeleteProject } from "../../types/project";
 import { DeleteProject } from "../../services/projectsService";
+import { showToast } from "../../utils/toastHelper";
 
 export default function RemoveProject({
   projectId,
   onClose,
   onConfirm,
 }: IDeleteProject) {
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
-
   const handleDelete = () => {
     try {
       DeleteProject(projectId);

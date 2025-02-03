@@ -2,25 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { toast } from "react-toastify";
 import { ILogin } from "../types/authentication";
 import { Login } from "../services/authenticationService";
 import Img from "../assets/CreativeHubLogo.png";
+import { showToast } from "../utils/toastHelper";
 
 export default function Authentication() {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(true);
   const navigate = useNavigate();
-
-  const showToast = (message: string, type: "success" | "error") => {
-    toast[type](message, {
-      position: "bottom-right",
-      autoClose: 5000,
-      closeOnClick: true,
-      draggable: true,
-    });
-  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
