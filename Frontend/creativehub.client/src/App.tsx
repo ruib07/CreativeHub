@@ -19,9 +19,11 @@ import Categories from "./components/Categories/Categories";
 import NewProject from "./components/Projects/AddProject";
 import Projects from "./components/Projects/Projects";
 import ProjectDetails from "./components/Projects/ProjectDetails";
+import EditProject from "./components/Projects/UpdateProject";
 
 import MyInformation from "./components/Profile/UserInformation";
 import UserProjects from "./components/Profile/UserProjects";
+import UserProjectComments from "./components/Profile/UserComments";
 
 export default function App() {
   return (
@@ -57,10 +59,15 @@ export default function App() {
             <Route path="/Projects/Create" element={<NewProject />} />
             <Route path="/Projects" element={<Projects />} />
             <Route path="/Project/:projectId" element={<ProjectDetails />} />
+            <Route
+              path="/Project/Update/:projectId"
+              element={<EditProject />}
+            />
             <Route path="/Categories/Create" element={<NewCategory />} />
             <Route path="/Categories" element={<Categories />} />
             <Route path="/MyInfo" element={<MyInformation />} />
             <Route path="/MyProjects" element={<UserProjects />} />
+            <Route path="/MyComments" element={<UserProjectComments />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

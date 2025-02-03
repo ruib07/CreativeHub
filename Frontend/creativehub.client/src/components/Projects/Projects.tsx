@@ -86,9 +86,7 @@ export default function Projects() {
                 </div>
                 <p className="text-gray-400 text-base">{project.description}</p>
                 <div className="mt-2 text-sm text-gray-500">
-                  {Array.isArray(project.tags)
-                    ? project.tags.join(", ")
-                    : project.tags}
+                  {project.tags.join(", ")}
                 </div>
               </div>
             </div>

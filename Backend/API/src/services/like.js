@@ -1,11 +1,14 @@
 module.exports = (app) => {
+  const findAll = (filter = {}) => app.db('likes').where(filter);
+
   const save = (registerLike) => app.db('likes').insert(registerLike, '*');
 
-  const remove = (user_id, project_id) => app.db('likes')
-    .where({ user_id, project_id })
+  const remove = (id) => app.db('likes')
+    .where({ id })
     .del();
 
   return {
+    findAll,
     save,
     remove,
   };

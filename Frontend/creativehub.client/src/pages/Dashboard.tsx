@@ -6,6 +6,7 @@ import { GetUserById } from "../services/usersService";
 import { GetCommentsByUser } from "../services/commentsService";
 import Header from "../layouts/Header";
 import { GetViewsByUser } from "../services/viewsService";
+import { GetLikesByUser } from "../services/likesService";
 
 export default function Dashboard() {
   const [user, setUser] = useState<{ name: string } | null>(null);
@@ -13,6 +14,7 @@ export default function Dashboard() {
   const [projectsCount, setProjectsCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
   const [viewsCount, setViewsCount] = useState(0);
+  const [likesCount, setLikesCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const userId = localStorage.getItem("id");
@@ -30,6 +32,9 @@ export default function Dashboard() {
 
         const viewsResponse = await GetViewsByUser(userId!);
         setViewsCount(viewsResponse.data.length);
+
+        const likesResponse = await GetLikesByUser(userId!);
+        setLikesCount(likesResponse.data.length);
 
         const commentsResponse = await GetCommentsByUser(userId!);
         setCommentsCount(commentsResponse.data.length);
@@ -78,7 +83,7 @@ export default function Dashboard() {
 
                       <div className="mt-6 p-5 bg-gray-700 border border-gray-600 rounded-xl text-gray-200">
                         <h3 className="text-lg font-semibold text-center mb-4">
-                          Project Overview
+                          Overview
                         </h3>
                         <div className="space-y-3">
                           <div className="flex justify-between items-center">
@@ -96,7 +101,7 @@ export default function Dashboard() {
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Total Likes:</span>
                             <span className="text-xl font-bold">
-                              {projectsCount} (TODO)
+                              {likesCount}
                             </span>
                           </div>
                           <div className="flex justify-between items-center">
@@ -134,9 +139,7 @@ export default function Dashboard() {
                               {project.description}
                             </a>
                             <div className="text-sm text-gray-400">
-                              {Array.isArray(project.tags)
-                                ? project.tags.join(", ")
-                                : project.tags}
+                              {project.tags.join(", ")}
                             </div>
                           </div>
                         ))

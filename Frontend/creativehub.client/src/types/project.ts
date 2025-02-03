@@ -7,3 +7,9 @@ export interface IProject {
   category_id: string;
   user_id: string;
 }
+
+export interface IDeleteProject {
+  projectId: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}

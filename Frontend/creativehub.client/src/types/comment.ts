@@ -5,3 +5,9 @@ export interface IComment {
   project_id: string;
   created_at: string;
 }
+
+export interface IDeleteProjectComment {
+  commentId: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}

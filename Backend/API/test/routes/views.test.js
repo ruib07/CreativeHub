@@ -49,7 +49,7 @@ beforeAll(async () => {
   project = { ...projectRes[0] };
 });
 
-test('Test #45 - Get views by Project ID', () => app.db('views')
+test('Test #47 - Get views by Project ID', () => app.db('views')
   .insert({
     user_id: user.id,
     project_id: project.id,
@@ -59,7 +59,7 @@ test('Test #45 - Get views by Project ID', () => app.db('views')
     expect(res.status).toBe(200);
   }));
 
-test('Test #46 - Get views by User ID', () => app.db('views')
+test('Test #48 - Get views by User ID', () => app.db('views')
   .insert({
     user_id: user.id,
     project_id: project.id,
@@ -69,7 +69,7 @@ test('Test #46 - Get views by User ID', () => app.db('views')
     expect(res.status).toBe(200);
   }));
 
-test('Test #47 - Creating a view with a user', async () => {
+test('Test #49 - Creating a view with a user', async () => {
   await request(app).post(route)
     .send({
       user_id: user.id,
@@ -80,7 +80,7 @@ test('Test #47 - Creating a view with a user', async () => {
     });
 });
 
-test('Test #48 - Creating a view without a user', async () => {
+test('Test #50 - Creating a view without a user', async () => {
   await request(app).post(route)
     .send({
       user_id: null,

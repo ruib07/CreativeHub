@@ -49,7 +49,29 @@ beforeAll(async () => {
   project = { ...projectRes[0] };
 });
 
-test('Test #43 - Creating a like', async () => {
+test('Test #43 - Get likes by User ID', () => app.db('likes')
+  .insert({
+    user_id: user.id,
+    project_id: project.id,
+  }, ['user_id'])
+  .then((likesRes) => request(app).get(`${route}/byUser/${likesRes[0].user_id}`)
+    .set('Authorization', `bearer ${user.token}`))
+  .then((res) => {
+    expect(res.status).toBe(200);
+  }));
+
+test('Test #44 - Get likes by Project ID', () => app.db('likes')
+  .insert({
+    user_id: user.id,
+    project_id: project.id,
+  }, ['project_id'])
+  .then((likesRes) => request(app).get(`${route}/byProject/${likesRes[0].project_id}`)
+    .set('Authorization', `bearer ${user.token}`))
+  .then((res) => {
+    expect(res.status).toBe(200);
+  }));
+
+test('Test #45 - Creating a like', async () => {
   await request(app).post(route)
     .set('Authorization', `bearer ${user.token}`)
     .send({
@@ -61,9 +83,14 @@ test('Test #43 - Creating a like', async () => {
     });
 });
 
-test('Test #44 - Deleting a like', async () => {
-  const res = await request(app)
-    .delete(`${route}/${user.id}/${project.id}`)
+test('Test #46 - Deleting a like', async () => {
+  const likeDel = await app.db('likes')
+    .insert({
+      user_id: user.id,
+      project_id: project.id,
+    }, ['id']);
+
+  const res = await request(app).delete(`${route}/${likeDel[0].id}`)
     .set('Authorization', `bearer ${user.token}`);
 
   expect(res.status).toBe(204);

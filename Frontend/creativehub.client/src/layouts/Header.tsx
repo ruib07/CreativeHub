@@ -94,7 +94,7 @@ export default function Header() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <a href="/">
-                <img alt="TaskQuest" src={Icon} className="h-9 w-auto" />
+                <img alt="CreativeHub" src={Icon} className="h-9 w-auto" />
               </a>
             </div>
             <div className="hidden sm:ml-6 sm:block">

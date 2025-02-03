@@ -4,10 +4,20 @@ import { IProject } from "../types/project";
 export const GetAllProjects = async () => apiRequest("GET", "projects");
 
 export const GetProjectById = async (projectId: string) =>
-  apiRequest("GET", `projects/${projectId}`);
+  await apiRequest("GET", `projects/${projectId}`);
 
 export const GetProjectsByUser = async (userId: string) =>
-  apiRequest("GET", `projects/byUser/${userId}`);
+  await apiRequest("GET", `projects/byUser/${userId}`);
 
 export const CreateProject = async (newProject: IProject) =>
-  apiRequest("POST", "projects", newProject);
+  await apiRequest("POST", "projects", newProject);
+
+export const UpdateProject = async (
+  projectId: string,
+  newProjectData: Partial<IProject>
+) => {
+  await apiRequest("PUT", `projects/${projectId}`, newProjectData);
+};
+
+export const DeleteProject = async (projectId: string) =>
+  await apiRequest("DELETE", `projects/${projectId}`);
